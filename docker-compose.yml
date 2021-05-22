@@ -1,0 +1,31 @@
+version: '3.7'
+
+volumes:
+    mysqldb:
+    logs:
+        driver: local
+
+services:
+    slim:
+        build: booking
+        working_dir: /var/www
+        command: php -S 0.0.0.0:8080 -t public
+        environment:
+            docker: "true"
+        ports:
+            - 8080:8080
+        volumes:
+            - .:/var/www
+            - logs:/var/www/logs
+    mysql:
+        image: mysql:5.7
+        restart: always
+        container_name: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        ports:
+            - 127.0.0.1:3306:3306
+        expose:
+            - '3306'
+        volumes:
+            - mysqldb:/var/lib/mysql
