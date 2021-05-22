@@ -7,7 +7,7 @@ volumes:
 
 services:
     slim:
-        build: booking
+        build: .
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
